@@ -2,9 +2,15 @@ from .settings import *
 
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myweb',
+        'USER': 'shenjun',
+        'PASSWORD': '123123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-
 
 # Static asset configuration.
 STATIC_ROOT = 'staticfiles'

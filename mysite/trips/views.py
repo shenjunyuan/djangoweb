@@ -12,9 +12,9 @@ def home(request):
     query = request.GET.get('q')
 
     if query:
-        post_list = Post.objects.filter(Q(title__contains=query) | Q(content__contains=query))
+        post_list = Post.objects.filter(Q(title__contains=query) | Q(content__contains=query)).order_by('-created_at')
     else:
-        post_list = Post.objects.all()
+        post_list = Post.objects.all().order_by('-created_at')
 
     return render(request, 'home.html', {'post_list': post_list })
 

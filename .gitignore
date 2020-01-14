@@ -1,4 +1,4 @@
-django_venv
+django2.0_venv
 *.pyc
 __pycache__
 staticfiles

@@ -28,4 +28,4 @@ urlpatterns = [
     path('bootstrap_train/', view = bootstrap, name = 'bootstrap_train'),
     ]
 
-urlpatterns += staticfiles_urlpatterns()
+

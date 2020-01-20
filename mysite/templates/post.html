@@ -44,6 +44,7 @@
     <form action="{% url 'post_update' post.id %}" method='get'>
         {% csrf_token %}
     <button class='createB' type='submit'>修改文章</button>
+    </form>
 
     <div class="container post post-detail">
         <div class="post-heading">

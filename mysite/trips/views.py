@@ -7,6 +7,10 @@ from django.db.models import Q
 from .models import Post
 from .form import PostForm
 
+def bootstrap(request):
+    return render(request, 'train_index.html', {
+    })
+
 
 def home(request):
     query = request.GET.get('q')
@@ -44,6 +48,3 @@ class PostDetail(DetailView):
     model = Post
     pk_url_kwag ='pk'
     template_name = 'post.html'
-
-
-

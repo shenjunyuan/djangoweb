@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from trips.views import  home, PostCreate, PostDelete , PostUpdate, PostDetail
+from trips.views import  home, PostCreate, PostDelete , PostUpdate, PostDetail, bootstrap
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', view = home, name='home'),
@@ -23,5 +25,7 @@ urlpatterns = [
     path('post/create/', view = PostCreate.as_view(), name = 'post_add'),
     path('post/delete/<int:pk>/', view = PostDelete.as_view(), name = 'post_delete'),
     path('post/update/<int:pk>/', view = PostUpdate.as_view(), name = 'post_update'),
-]
+    path('bootstrap_train/', view = bootstrap, name = 'bootstrap_train'),
+    ]
 
+urlpatterns += staticfiles_urlpatterns()

@@ -25,7 +25,5 @@ urlpatterns = [
     path('post/create/', view = PostCreate.as_view(), name = 'post_add'),
     path('post/delete/<int:pk>/', view = PostDelete.as_view(), name = 'post_delete'),
     path('post/update/<int:pk>/', view = PostUpdate.as_view(), name = 'post_update'),
-    path('bootstrap_train/', view = bootstrap, name = 'bootstrap_train'),
-
 ]
 

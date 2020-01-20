@@ -7,11 +7,6 @@ from django.db.models import Q
 from .models import Post
 from .form import PostForm
 
-def bootstrap(request):
-    return render(request, 'train_index.html', {
-    })
-
-
 def home(request):
     query = request.GET.get('q')
 

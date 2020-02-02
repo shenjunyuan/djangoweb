@@ -53,7 +53,8 @@
                 <div class="post">
                     <div class="post-heading">
                         <h2 class="title">
-                            <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+
+                            <a href="{% url 'post_detail' pk=post.pk%}">{{ post.title }}</a>
                         </h2>
                     <div class="date">{{ post.created_at|date:"Y / m / d" }}</div> {% comment %} 做日期轉換 {% endcomment %}
                     </div>

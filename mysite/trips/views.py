@@ -17,7 +17,6 @@ def home(request):
 
     return render(request, 'home.html', {'post_list': post_list })
 
-
 class PostCreate(CreateView):
     form_class = PostForm
     template_name = "create_post.html"
@@ -28,11 +27,9 @@ class PostUpdate(UpdateView):
     form_class = PostForm
     pk_url_kwag ='pk'
     template_name = 'create_post.html'
-
     def get_success_url(self):
         id = self.get_object().id
         return reverse('post_detail', kwargs={'pk': id})
-
 
 class PostDelete(DeleteView):
     model = Post

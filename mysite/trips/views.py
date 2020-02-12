@@ -43,6 +43,6 @@ class PostDetail(DetailView):
 
 
 def bootstrap_train(request):
-    return render(request, 'train_index.html', {
+    return render(request, 'test.html', {
     })
 

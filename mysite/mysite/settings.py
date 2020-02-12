@@ -144,5 +144,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # MIDDLEWARE_CLASSES = (
 #     # Simplified static file serving.
 #     # https://warehouse.python.org/project/whitenoise/
-#
+#     'whitenoise.middleware.WhiteNoiseMiddleware',
 # )

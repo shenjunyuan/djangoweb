@@ -41,8 +41,3 @@ class PostDetail(DetailView):
     pk_url_kwag ='pk'
     template_name = 'post.html'
 
-
-def bootstrap_train(request):
-    return render(request, 'train_index.html', {
-    })
-

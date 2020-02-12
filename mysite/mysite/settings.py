@@ -127,10 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 #   /
 
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
 STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
@@ -140,3 +140,9 @@ STATICFILES_DIRS = (
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MIDDLEWARE_CLASSES = (
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)

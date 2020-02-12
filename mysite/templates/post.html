@@ -28,39 +28,39 @@
         }
 </style>
 <body>
-<div>
+    <div>
 
-    <div class="header">
-        <h1 class="site-title text-center">
-            <a href="/home">測試用blog</a>
-        </h1>
-    </div>
-
-    <form action="{% url 'post_delete' post.id %}" method='post'>
-        {% csrf_token %}
-        <button class='deleteB' type='submit' onclick='return confirm("是否確定刪除")'>刪除文章</button>
-    </form>
-
-    <form action="{% url 'post_update' post.id %}" method='get'>
-        {% csrf_token %}
-    <button class='createB' type='submit'>修改文章</button>
-    </form>
-
-    <div class="container post post-detail">
-        <div class="post-heading">
-            <h1class="title">{{ post.title }}</h1>
-            <div class="date">{{ post.created_at|date:'Y / m / d' }}</div>
+        <div class="header">
+            <h1 class="site-title text-center">
+                <a href="/home">測試用blog</a>
+            </h1>
         </div>
-        <div class="location">
-            <i class="fa fa-map-marker"></i>
-            <span id="location-content">{{ post.location }}</span>
-        </div>
-        <div id="map-canvas" class="map"></div>
-        <div class="post-content">
-            {{ post.content }}
-        </div>
-        <hr class="fancy-line">
-        <img class="photo" src="{{ post.photo }}" alt="Cover photo for {{ post.title }}">
+
+        <form action="{% url 'post_delete' post.id %}" method='post'>
+            {% csrf_token %}
+            <button class='deleteB' type='submit' onclick='return confirm("是否確定刪除")'>刪除文章</button>
+        </form>
+
+        <form action="{% url 'post_update' post.id %}" method='get'>
+            {% csrf_token %}
+        <button class='createB' type='submit'>修改文章</button>
+        </form>
+
+        <div class="container post post-detail">
+            <div class="post-heading">
+                <h1class="title">{{ post.title }}</h1>
+                <div class="date">{{ post.created_at|date:'Y / m / d' }}</div>
+            </div>
+            <div class="location">
+                <i class="fa fa-map-marker"></i>
+                <span id="location-content">{{ post.location }}</span>
+            </div>
+            <div id="map-canvas" class="map"></div>
+            <div class="post-content">
+                {{ post.content }}
+            </div>
+            <hr class="fancy-line">
+            <img class="photo" src="{{ post.photo }}" alt="Cover photo for {{ post.title }}">
     </div>
 
 </body>

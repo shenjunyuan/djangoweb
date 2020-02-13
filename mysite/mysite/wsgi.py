@@ -12,14 +12,10 @@ from django.core.wsgi import get_wsgi_application
 from dj_static import Cling
 
 
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 
 application = Cling(get_wsgi_application())
 
-from mysite.settings import DEBUG
-if not DEBUG:    # Running on Heroku
-    from dj_static import Cling
-    application = Cling(get_wsgi_application())
 
 
 

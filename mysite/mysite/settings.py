@@ -137,11 +137,12 @@ USE_TZ = True
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # For Heroku deployment
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'account.User'
 LOGIN_URL = '/account/login/'
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
     ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),

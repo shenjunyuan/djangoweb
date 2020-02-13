@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from trips.views import main, about, article, articleCreate, articleRead, articleUpdate, articleDelete, articleSearch, articleLike, commentCreate, commentUpdate, commentDelete
 from account.views import register, login, logout
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,3 +41,7 @@ urlpatterns = [
     path('commentDelete/<int:commentId>/', view = commentDelete, name ='commentDelete'),
 ]
 
+if not settings.DEBUG:
+    urlpatterns += patterns('',
+     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )

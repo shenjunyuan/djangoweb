@@ -24,6 +24,8 @@ SECRET_KEY = '5m2&=@#pl+$-e(26q*xwkqf(4r$=c1q1gpu^(j+&fjwm74b)5m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if 'DYNO' in os.environ:    # Running on Heroku
+    DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -37,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'trips',
     'crispy_forms',
+    'trips',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -89,6 +94,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -125,12 +131,16 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-#   /
+#
 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# For Heroku deployment
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+AUTH_USER_MODEL = 'account.User'
+LOGIN_URL = '/account/login/'
 STATICFILES_DIRS = (
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),

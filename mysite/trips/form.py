@@ -1,8 +1,11 @@
 from django import forms
-from .models import Post
+from .models import Article
 
-class PostForm(forms.ModelForm):
+class ArticleForm(forms.ModelForm):
+    title = forms.CharField(label='標題', max_length=128)
+    content = forms.CharField(label='內容', widget=forms.Textarea)
+
     class Meta:
-        model = Post
-        fields = ('title', 'content', 'photo', 'location', )
+        model = Article
+        fields = ['title', 'content']
 

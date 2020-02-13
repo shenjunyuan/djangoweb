@@ -1,2 +1,2 @@
-web: gunicorn --pythonpath mysite mysite.wsgi
 
+web: gunicorn mysite mysite.wsgi --log-file -

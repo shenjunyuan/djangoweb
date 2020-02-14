@@ -17,7 +17,7 @@
 
   <h3 class="inlineBlock"><a href="{% url 'articleRead' article.id %}">{{ article.title }}</a></h3>
 
-  <p>{{article.user}}</p>
+  <p>發表人: {{article.user}}</p>
   <p>發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
   <div class="articleContent">{{ article.content|linebreaks|truncatechars_html:30 }}</div>
   <p class=like>

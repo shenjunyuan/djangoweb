@@ -39,5 +39,6 @@ urlpatterns = [
     path('commentCreate/<int:articleId>/', view = commentCreate, name ='commentCreate'),
     path('commentUpdate/<int:commentId>/', view = commentUpdate, name ='commentUpdate'),
     path('commentDelete/<int:commentId>/', view = commentDelete, name ='commentDelete'),
+
 ]
 

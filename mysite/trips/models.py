@@ -8,6 +8,7 @@ class Article(models.Model):
     content = models.TextField()
     pubDateTime = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
 
     def __str__(self):
         return self.title

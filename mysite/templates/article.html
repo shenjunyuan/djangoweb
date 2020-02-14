@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'main/css/article.css' %}">
+<link href="//shenjunyuan.github.io/assets/css/article.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block heading %}歡迎蒞臨{% endblock %}
@@ -14,20 +13,17 @@
 <br><br>
 <hr>
 
-{% for article, comments in articles.items %}
+{% for article in articles %}
+
   <h3 class="inlineBlock"><a href="{% url 'articleRead' article.id %}">{{ article.title }}</a></h3>
-  {% if user.is_superuser %}
-    <form class="inlineBlock" method="post" action="{% url 'articleDelete' article.id %}">
-      {% csrf_token %}
-      <input class="btn deleteConfirm" type="submit" value="刪除">
-    </form>
-  {% endif %}
+
+  <p>{{article.user}}</p>
   <p>發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
   <div class="articleContent">{{ article.content|linebreaks|truncatechars_html:30 }}</div>
   <p class=like>
-    <img id=like src="{% static 'main/img/like.png' %}" alt="Like"> {{ article.likes.count }}
+    <img id=like src="https://github.com/shenjunyuan/shenjunyuan.github.io/blob/master/assets/img/like.png?raw=true" alt="Like"> {{ article.likes.count }}
   </p>
-  {% for comment in comments %}
+  {% for comment in article.comments %}
     <div class="commentDiv">
       <span class="commentAuthor">{{ comment.user.fullName }}</span>
       <span class="comment">{{ comment.content }}</span>
@@ -39,5 +35,5 @@
 {% endfor %}
 {% endblock %}
 {% block script %}
-<script src="{% static 'main/js/deleteConfirm.js' %}"></script>
+
 {% endblock %}

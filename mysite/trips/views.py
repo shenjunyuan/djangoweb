@@ -5,7 +5,7 @@ from django.urls.base import reverse_lazy, reverse
 from django.db.models.query_utils import Q
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponseForbidden
 
 
 from .models import Article, Comment
@@ -30,19 +30,28 @@ def about(request):
 
 def article(request):
     # 將 articles 變數改為一個字典 (Dictionary)，其中每個項目的鍵 (Key) 就是文章物件，而其對應值 (Value) 就是所屬的留言查詢集 (Queryset)
-    articles = {article:Comment.objects.filter(article=article) for article in Article.objects.all()} # 在每篇文章下方顯示所屬留言
-    context = {'articles': articles}
-    return render(request, 'article.html', context)
+    articles = { article:Comment.objects.filter( article = article ) for article in Article.objects.all() } # 在每篇文章下方顯示所屬留言
+    # username = User.objects.get(pk=1)
+    context = {
+        'articles': articles,
+
+        }
+    return render(request, 'article.html', context )
 
 @login_required
 def articleCreate(request):
     template = 'articleCreateUpdate.html'
 
     if request.method == 'GET':
-        return render(request, template, {'articleForm':ArticleForm()})
+        return render(request, template, {'articleForm':ArticleForm(), 'request': request})
 
     # POST
-    articleForm = ArticleForm(request.POST) # request.POST 是使用者在表單裡所填的資料，透過 HTML 表單送到後端
+    # Reference type
+    # instance type
+    data = request.POST.copy()
+    data.update({'user': request.user.id})
+    articleForm = ArticleForm(data) # request.POST 是使用者在表單裡所填的資料，透過 HTML 表單送到後端
+
     if not articleForm.is_valid():
         return render(request, template, {'articleForm':articleForm})
 
@@ -90,7 +99,7 @@ def articleUpdate(request, articleId):
     messages.success(request, '文章已修改')
     return redirect('articleRead', articleId=articleId)
 
-@admin_required
+@login_required
 def articleDelete(request, articleId):
     '''
     Delete the article instance:
@@ -98,13 +107,17 @@ def articleDelete(request, articleId):
         2. Get the article to delete; redirect to 404 if not found
     '''
     if request.method == 'GET':
-        return redirect('article')
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        return HttpResponseForbidden()
 
-    # POST
     article = get_object_or_404(Article, id=articleId)
-    article.delete()
-    messages.success(request, '文章已刪除')
-    return redirect('article')
+    if article.user == request.user or request.user.is_superuser:
+        article.delete()
+        messages.success(request, '文章已刪除')
+        return redirect('article')
+    else:
+        return HttpResponseForbidden()
+
 
 def articleSearch(request):
     '''
@@ -198,3 +211,5 @@ def commentDelete(request, commentId):
 
     comment.delete()
     return redirect('articleRead', articleId=article.id)
+
+

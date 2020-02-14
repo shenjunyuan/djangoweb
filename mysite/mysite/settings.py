@@ -24,8 +24,7 @@ SECRET_KEY = '5m2&=@#pl+$-e(26q*xwkqf(4r$=c1q1gpu^(j+&fjwm74b)5m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-if 'DYNO' in os.environ:    # Running on Heroku
-    DEBUG = False
+
 
 ALLOWED_HOSTS = []
 
@@ -138,7 +137,6 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'account.User'
 LOGIN_URL = '/account/login/'
 STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, '/app/mysite/static'),
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),

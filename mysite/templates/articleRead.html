@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
-{% load static %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'main/css/article.css' %}">
 {% endblock %}
+
 {% block heading %}閱讀文章{% endblock %}
 {% block content %}
 <h3 class="inlineBlock">{{ article.title }}</h3>
-{% if user.username %}
+{% if article.user == user or user.is_superuser %}
   <a class="btn inlineBlock" href="{% url 'articleUpdate' article.id %}">修改文章</a>
 {% endif %}
+
+{% if article.user == user or user.is_superuser %}
+    <form class="inlineBlock" method="post" action="{% url 'articleDelete' article.id %}">
+      {% csrf_token %}
+      <input class="btn deleteConfirm" type="submit" onclick='return confirm("是否確定刪除")' value="刪除">
+
+    </form>
+{% endif %}
+
+<p>發表人: {{article.user}}</p>
 <p>發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
 <div class="articleContent">{{ article.content|linebreaks }}</div>
 <p class=like>
-  <img id=like src="{% static 'main/img/like.png' %}" alt="Like"> {{ article.likes.count }}
+  <img id=like src="https://github.com/shenjunyuan/shenjunyuan.github.io/blob/master/assets/img/like.png?raw=true" alt="Like"> {{ article.likes.count }}
   {% if user.is_authenticated %}
     <a href="{% url 'articleLike' article.id %}">讚</a>
   {% endif %}
@@ -30,7 +40,7 @@
       </form>
       <form class="inlineBlock" method="post" action="{% url 'commentDelete' comment.id %}">
         {% csrf_token %}
-        <input class="btn deleteConfirm" type="submit" value="刪除">
+        <input class="btn deleteConfirm" type="submit" value="刪除" >
       </form>
   {% endif %}
     <br>
@@ -50,5 +60,6 @@
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'main/js/deleteConfirm.js' %}"></script>
+
 {% endblock %}
+

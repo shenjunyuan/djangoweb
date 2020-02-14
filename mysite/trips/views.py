@@ -22,7 +22,7 @@ def admin_required(func):
 
 
 def main(request):
-    context = {'like':'Django 很棒'}
+    context = {'like':'歡迎光臨'}
     return render(request, 'main.html', context)
 
 def about(request):

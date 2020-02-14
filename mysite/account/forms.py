@@ -7,11 +7,11 @@ class UserForm(forms.ModelForm):
     password = forms.CharField(label='密碼', widget=forms.PasswordInput)
     password2 = forms.CharField(label='確認密碼', widget=forms.PasswordInput)
     fullName = forms.CharField(label='姓名', max_length=128)
-    address = forms.CharField(label='住址', max_length=128)
+
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'password2', 'fullName', 'address']
+        fields = ['username', 'password', 'password2', 'fullName']
 
     def clean_password2(self):
         password = self.cleaned_data.get('password')

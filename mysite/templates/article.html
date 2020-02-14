@@ -15,7 +15,7 @@
 
 {% for article in articles %}
 
-  <h3 class="inlineBlock"><a href="{% url 'articleRead' article.id %}">{{ article.title }}</a></h3>
+  <h3 class="inlineBlock"><a href="{% url 'articleRead' article.id %}">標題: {{ article.title }}</a></h3>
 
   <p>發表人: {{article.user}}</p>
   <p>發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>

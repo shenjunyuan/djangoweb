@@ -18,7 +18,7 @@ def main(request):
         latest_content = Article.objects.all().order_by('-id')[0]
     else:
         latest_content = '無最新消息'
-    context = {'welcome':'歡迎光臨','latest_content':latest_content }
+    context = {'welcome':'歡迎光臨', 'latest_content':latest_content }
     return render(request, 'main.html', context)
 
 def about(request):

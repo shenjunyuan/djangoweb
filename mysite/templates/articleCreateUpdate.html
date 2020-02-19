@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{% comment %} {% load static %} {% endcomment %}
 {% block css %}
+{% comment %} <link rel="stylesheet" href="{% static 'main/css/article.css' %}"> {% endcomment %}
 <link href="//shenjunyuan.github.io/assets/css/article.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block heading %}
@@ -17,10 +18,12 @@
 {% else %}
   <form method="post" action="{% url 'articleCreate' %}">
 {% endif %}
-
   {% csrf_token %}
   {{ articleForm.as_p }}
   <input class="btn" type="submit" value="送出">
   <a class="btn" href="{% url 'article' %}">放棄</a>
 </form>
+
 {% endblock %}
+
+</form>

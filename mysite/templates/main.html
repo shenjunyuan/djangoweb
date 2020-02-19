@@ -1,5 +1,81 @@
 {% extends 'base.html' %}
-{% block heading %}首頁{% endblock %}
+{% comment %} {% load static %} {% endcomment %}
 {% block content %}
-<p>{{ like }}</p>
+<section id='intro'>
+    <div class='jumbotron'>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <h1>最新文章</h1>
+                    {% if latest_content.content %}
+                    <p class='lead'>{{ latest_content.content }}</p>
+                    {% else %}
+                    <p class='lead'>{{ latest_content }}</p>
+                    {% endif %}
+                    <a class='btn' href="{% url 'article' %}">點擊前往</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id='second'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-8 offset-md-2 text-center'>
+                <h3>關於我</h3>
+                <div class='row'>
+                    <div class='col-md-4'>
+                        <img src="https://raw.githubusercontent.com/shenjunyuan/shenjunyuan.github.io/master/assets/img/inner.png">
+                        <h5>勝軍shejun</h5>
+                    </div>
+
+                    <div class='col-md-8 text-left'>
+                        <p class='lead'>曾在研能科技擔任MIS</p>
+                        <p>工作接觸過oracle SQL結合SmartQuery報表開發、資訊設備採買、windows AD維護、mail server管理等</p>
+                        <p>離職後在家自學python/django架站，並製作一些網站相關作品</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id='footer'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-4 test-left'>
+                <img src="https://github.com/shenjunyuan/shenjunyuan.github.io/blob/master/assets/img/logo.jpg?raw=true">
+                <p>感謝你的觀看</p>
+            </div>
+            <div class='col-md-4 test-left'>
+                <h4>連結</h4>
+                <ul>
+                    <li><a href='#'>主頁</a></li>
+                    <li><a href='#'>最新文章</a></li>
+                </ul>
+                <ul>
+                    <li><a href='#'>常見問題</a></li>
+                    <li><a href='#footer'>聯絡方式</a></li>
+                </ul>
+
+            </div>
+            <div class='col-md-4 test-left'>
+                <h4>聯絡我們</h4>
+                <p>桃園市大園區田心里華興路<br>
+                    Phone: 0988-836-551<br>
+                    E-Mail: <a href='#mailto:xxx@gmail.com'>h14736985@gmail.com</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 {% endblock %}
+
+
+

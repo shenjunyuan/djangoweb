@@ -12,30 +12,21 @@ from .models import Article, Comment
 from .form import ArticleForm
 from account.models import User
 
-def admin_required(func):
-    def auth(request, *args, **kwargs):
-        if not request.user.is_superuser:
-            messages.error(request, '請以管理者身份登入')
-            return redirect(reverse('login') + '?next=' + request.get_full_path())
-        return func(request, *args, **kwargs)
-    return auth
-
-
 def main(request):
-    context = {'like':'歡迎光臨'}
+    latest_content = Article.objects.all()
+    if latest_content:
+        latest_content = Article.objects.all().order_by('-id')[0]
+    else:
+        latest_content = '無最新消息'
+    context = {'welcome':'歡迎光臨','latest_content':latest_content }
     return render(request, 'main.html', context)
 
 def about(request):
     return render(request, 'about.html')
 
 def article(request):
-    # 將 articles 變數改為一個字典 (Dictionary)，其中每個項目的鍵 (Key) 就是文章物件，而其對應值 (Value) 就是所屬的留言查詢集 (Queryset)
-    articles = { article:Comment.objects.filter( article = article ) for article in Article.objects.all() } # 在每篇文章下方顯示所屬留言
-    # username = User.objects.get(pk=1)
-    context = {
-        'articles': articles,
-
-        }
+    articles = { article:Comment.objects.filter( article = article ) for article in Article.objects.all() } # 抓取每篇文章底下留言資料
+    context = {'articles': articles}
     return render(request, 'article.html', context )
 
 @login_required
@@ -44,15 +35,14 @@ def articleCreate(request):
 
     if request.method == 'GET':
         return render(request, template, {'articleForm':ArticleForm(), 'request': request})
-
     # POST
     # Reference type
     # instance type
-    data = request.POST.copy()
+    data = request.POST.copy() # request.POST 是使用者在html表單裡所填的資料，送到後端
     data.update({'user': request.user.id})
-    articleForm = ArticleForm(data) # request.POST 是使用者在表單裡所填的資料，透過 HTML 表單送到後端
+    articleForm = ArticleForm(data)
 
-    if not articleForm.is_valid():
+    if not articleForm.is_valid(): # 驗證輸入的資料格式是否正確
         return render(request, template, {'articleForm':articleForm})
 
     articleForm.save()
@@ -60,13 +50,8 @@ def articleCreate(request):
     return redirect('article')
 
 
-def articleRead(request, articleId):
-    '''
-    Read an article
-        1. Get the article instance; redirect to the 404 page if not found
-        2. Render the articleRead template with the article instance and its
-           associated comments
-    '''
+def articleRead(request, articleId): # articleId 是從 URL request 傳來
+
     article = get_object_or_404(Article, id=articleId)
     context = {
         'article': article,
@@ -76,22 +61,15 @@ def articleRead(request, articleId):
 
 @login_required
 def articleUpdate(request, articleId):
-    '''
-    Update the article instance:
-        1. Get the article to update; redirect to 404 if not found
-        2. If method is GET, render a bound form
-        3. If method is POST,
-           * validate the form and render a bound form if the form is invalid
-           * else, save it to the model and redirect to the articleRead page
-    '''
+
     article = get_object_or_404(Article, id=articleId)
     template = 'articleCreateUpdate.html'
     if request.method == 'GET':
-        articleForm = ArticleForm(instance=article)
+        articleForm = ArticleForm(instance=article) # 產生一個 Django 表單並綁定從資料庫取出的物件
         return render(request, template, {'articleForm':articleForm})
 
-    # POST
-    articleForm = ArticleForm(request.POST, instance=article)
+    articleForm = ArticleForm(request.POST, instance=article) # 產生一個 Django 表單而且綁定兩個項目：使用者的輸入以及所取出的文章物件
+
     if not articleForm.is_valid():
         return render(request, template, {'articleForm':articleForm})
 
@@ -101,42 +79,24 @@ def articleUpdate(request, articleId):
 
 @login_required
 def articleDelete(request, articleId):
-    '''
-    Delete the article instance:
-        1. Render the article page if the method is GET
-        2. Get the article to delete; redirect to 404 if not found
-    '''
-    if request.method == 'GET':
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        return HttpResponseForbidden()
-
     article = get_object_or_404(Article, id=articleId)
-    if article.user == request.user or request.user.is_superuser:
+    if request.method == 'GET':
+       return HttpResponseForbidden()
+    elif article.user == request.user or request.user.is_superuser:
         article.delete()
         messages.success(request, '文章已刪除')
         return redirect('article')
     else:
         return HttpResponseForbidden()
 
-
 def articleSearch(request):
-    '''
-    Search for articles:
-        1. Get the "searchTerm" from the HTML form
-        2. Use "searchTerm" for filtering
-    '''
-    searchTerm = request.GET.get('searchTerm')
-    articles = Article.objects.filter( Q(title__icontains=searchTerm) | Q(content__icontains=searchTerm) )
-    context = {'articles':articles, 'searchTerm':searchTerm}
+    search = request.GET.get('search')
+    articles = Article.objects.filter( Q(title__icontains=search) | Q(content__icontains=search) )
+    context = {'articles':articles, 'search':search}
     return render(request, 'articleSearch.html', context)
+
 @login_required
 def articleLike(request, articleId):
-    '''
-    Add the user to the 'likes' field:
-        1. Get the article; redirect to 404 if not found
-        2. If the user does not exist in the "likes" field, add him/her
-        3. Finally, call articleRead() function to render the article
-    '''
     article = get_object_or_404(Article, id=articleId)
     if request.user not in article.likes.all():
         article.likes.add(request.user)

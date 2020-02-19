@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
-{% block heading %}關於{% endblock %}
+{% comment %} {% load static %} {% endcomment %}
 {% block content %}
-<p>歡迎來到我的部落格，您可盡情瀏覽並留言。</p>
+    <section id='second'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-8 offset-md-2 text-center'>
+                <h3>關於我</h3>
+                <div class='row'>
+                    <div class='col-md-4'>
+                        <img src="https://raw.githubusercontent.com/shenjunyuan/shenjunyuan.github.io/master/assets/img/inner.png">
+                        <h5>勝軍shejun</h5>
+                    </div>
+
+                    <div class='col-md-8 text-left'>
+                        <p class='lead'>曾在研能科技擔任MIS</p>
+                        <p>工作接觸過oracle SQL結合SmartQuery報表開發、資訊設備採買、windows AD維護、mail server管理等</p>
+                        <p>離職後在家自學python/django架站，並製作一些網站相關作品</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

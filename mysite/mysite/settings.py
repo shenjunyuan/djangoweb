@@ -26,11 +26,10 @@ SECRET_KEY = '5m2&=@#pl+$-e(26q*xwkqf(4r$=c1q1gpu^(j+&fjwm74b)5m'
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -80,8 +79,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -93,11 +90,8 @@ DATABASES = {
     }
 }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -129,13 +123,10 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-#
-
-STATIC_ROOT = 'staticfiles' # for heroku
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'account.User'
-LOGIN_URL = '/account/login/'
+LOGIN_URL = '/account/login/'   # 設定轉向登入頁面的 URL
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, '/app/mysite/static'),
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
@@ -146,7 +137,6 @@ STATICFILES_DIRS = (
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # MIDDLEWARE_CLASSES = (
 #     # Simplified static file serving.
 #     # https://warehouse.python.org/project/whitenoise/

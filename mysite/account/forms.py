@@ -8,7 +8,6 @@ class UserForm(forms.ModelForm):
     password2 = forms.CharField(label='確認密碼', widget=forms.PasswordInput)
     fullName = forms.CharField(label='姓名', max_length=128)
 
-
     class Meta:
         model = User
         fields = ['username', 'password', 'password2', 'fullName']

@@ -1,11 +1,53 @@
-<ul id="menu">
+{% comment %} {% load static %} {% endcomment %}
+<header>
+  <div class='container'>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{% url 'main' %}">
+            <img src="https://github.com/shenjunyuan/shenjunyuan.github.io/blob/master/assets/img/logo.jpg?raw=true">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'main' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'about' %}">關於 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'article' %}">留言板 <span class="sr-only">(current)</span></a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'logout' %}">登出 <span class="sr-only">(current)</span></a>
+                </li>
+              {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'register' %}">註冊 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'login' %}">登入 <span class="sr-only">(current)</span></a>
+                </li>
+              {% endif %}
+          </ul>
+        </div>
+      </nav>
+  </div>
+</header>
+
+
+
+{% comment %} <ul id="menu">
   <li><a href="{% url 'main' %}">首頁</a></li>
   <li><a href="{% url 'about' %}">關於</a></li>
-  <li><a href="{% url 'article' %}">部落格</a></li>
+  <li><a href="{% url 'article' %}">留言板</a></li>
+
   {% if user.is_authenticated %}
     <li><a href="{% url 'logout' %}">登出 ({{ user.username }})</a></li>
   {% else %}
    <li><a href="{% url 'register' %}">註冊</a></li>
    <li><a href="{% url 'login' %}">登入</a></li>
   {% endif %}
-</ul>
+</ul> {% endcomment %}

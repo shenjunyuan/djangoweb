@@ -3,7 +3,7 @@
 {% block css %}
 {% endblock %}
 
-{% block heading %}閱讀文章{% endblock %}
+
 {% block content %}
 <h3 class="inlineBlock">標題: {{ article.title }}</h3>
 {% if article.user == user or user.is_superuser %}
@@ -59,7 +59,4 @@
 {% endif %}
 {% endblock %}
 
-{% block script %}
-
-{% endblock %}
 

@@ -1,4 +1,4 @@
 <form class="inlineBlock" action="{% url 'articleSearch' %}">
-  <input type="text" name="searchTerm"> {% if searchTerm %}{% endif %}
+  <input type="text" name="search" {% if search %}value="{{ search }}"{% endif %}>
   <input class="btn" type="submit" value="查詢">
 </form>

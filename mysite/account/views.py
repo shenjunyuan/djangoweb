@@ -8,27 +8,20 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 
 def register(request):
-    '''
-    Register a new user
-    '''
     template = 'register.html'
     if request.method == 'GET':
         return render(request, template, {'userForm':UserForm()})
-
-    # POST
+     # POST
     userForm = UserForm(request.POST)
     if not userForm.is_valid():
         return render(request, template, {'userForm':userForm})
 
     userForm.save()
-    messages.success(request, '歡迎註冊')
+    messages.success(request, '註冊成功')
     return redirect('main')
 
 
 def login(request):
-    '''
-    Login an existing user
-    '''
     template = 'login.html'
     if request.method == 'GET':
         return render(request, template, {'nextURL':request.GET.get('next')})
@@ -36,7 +29,7 @@ def login(request):
     # POST
     username = request.POST.get('username')
     password = request.POST.get('password')
-    if not username or not password:    # Server-side validation
+    if not username or not password:
         messages.error(request, '請填資料')
         return render(request, template)
 
@@ -55,9 +48,6 @@ def login(request):
 
 @login_required
 def logout(request):
-    '''
-    Logout the user
-    '''
     auth_logout(request)
     messages.success(request, '歡迎再度光臨')
     return redirect('login')

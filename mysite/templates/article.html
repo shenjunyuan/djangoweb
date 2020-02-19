@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% comment %} {% load static %} {% endcomment %}
 {% block css %}
-<link href="//shenjunyuan.github.io/assets/css/article.css" rel="stylesheet" type="text/css">
+{% comment %} <link rel="stylesheet" href="{% static 'main/css/article.css' %}"> {% endcomment %}
 {% endblock %}
+<link href="//shenjunyuan.github.io/assets/css/article.css" rel="stylesheet" type="text/css">
 
-{% block heading %}歡迎蒞臨{% endblock %}
+{% block heading %}留言板{% endblock %}
 {% block content %}
 {% include 'searchForm.html' %}
 {% if user.username %}
@@ -16,10 +18,10 @@
 {% for article in articles %}
 
   <h3 class="inlineBlock"><a href="{% url 'articleRead' article.id %}">標題: {{ article.title }}</a></h3>
-
   <p>發表人: {{article.user}}</p>
   <p>發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
-  <div class="articleContent">{{ article.content|linebreaks|truncatechars_html:30 }}</div>
+  <div class="articleContent">{{ article.content|linebreaks|truncatechars_html:30 }}</div> {% comment %} 文字斷行用linebreaks {% endcomment %}
+
   <p class=like>
     <img id=like src="https://github.com/shenjunyuan/shenjunyuan.github.io/blob/master/assets/img/like.png?raw=true" alt="Like"> {{ article.likes.count }}
   </p>
@@ -32,8 +34,6 @@
     </div>
   {% endfor %}
   <hr>
-{% endfor %}
-{% endblock %}
-{% block script %}
 
+{% endfor %}
 {% endblock %}

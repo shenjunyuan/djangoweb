@@ -1,9 +1,9 @@
 
-/*Article的外觀設定都在這*/
+/* Article的外觀設定都在這 */
 .articleContent {
     padding: 20px;
     background-color: #e9e9e9;
-    border: thin solid gray;
+    border: thin solid blue;
     border-radius: 10px;
   }
 
